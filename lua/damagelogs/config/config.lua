@@ -12,10 +12,9 @@
 ]]--
 
 Damagelog:AddUser("owner", 4, true)
-Damagelog:AddUser("founder", 4, true)
 Damagelog:AddUser("superadmin", 4, true)
 Damagelog:AddUser("admin", 4, true)
-Damagelog:AddUser("operator", 3, false)
+Damagelog:AddUser("moderator", 3, true)
 Damagelog:AddUser("user", 1, false)
 
 -- The F-key
@@ -47,7 +46,7 @@ Damagelog.Respond_Command = "!respond"
 
 Damagelog.Use_MySQL = false
 
---[[ Autoslay and Autojail Mode 
+--[[ Autoslay and Autojail Mode
 REQUIRES ULX ! If you are using ServerGuard, set this to 0 (it will use ServerGuard's autoslay automatically)
 - 0 : Disables autoslay
 - 1 : Enables the !aslay and !aslayid command for ULX, designed to work with the logs.
@@ -66,33 +65,34 @@ Damagelog.ULX_Autoslay_ForceRole = true
 
 -- Default autoslay reasons (ULX and ServerGuard)
 
-Damagelog.Autoslay_DefaultReason1 = "random kill"
-Damagelog.Autoslay_DefaultReason2 = "multiple random kills"
-Damagelog.Autoslay_DefaultReason3 = "random damage"
-Damagelog.Autoslay_DefaultReason4 = "multiple random damage"
-Damagelog.Autoslay_DefaultReason5 = "teamkill"
-Damagelog.Autoslay_DefaultReason6 = "needless report"
-Damagelog.Autoslay_DefaultReason7 = "unfitting answer"
-Damagelog.Autoslay_DefaultReason8 = "unfitting language"
-Damagelog.Autoslay_DefaultReason9 = "lying"
-Damagelog.Autoslay_DefaultReason10 = "propkill"
-Damagelog.Autoslay_DefaultReason11 = "teaming"
-Damagelog.Autoslay_DefaultReason12 = "random kos"
+Damagelog.Autoslay_DefaultReason1 = "RDM"
+Damagelog.Autoslay_DefaultReason2 = "Muliple RDM"
+Damagelog.Autoslay_DefaultReason3 = "Killing T Budddy"
+Damagelog.Autoslay_DefaultReason4 = "Killing T Buddies"
+Damagelog.Autoslay_DefaultReason5 = "Random Damage"
+Damagelog.Autoslay_DefaultReason6 = "False KOS"
+Damagelog.Autoslay_DefaultReason7 = "Prop Killing"
+Damagelog.Autoslay_DefaultReason8 = "Random Discombob Damage"
+Damagelog.Autoslay_DefaultReason8 = "Random Discombob Kill"
+Damagelog.Autoslay_DefaultReason9 = "Troll Freeze"
+Damagelog.Autoslay_DefaultReason10 = "Troll Disarm"
+Damagelog.Autoslay_DefaultReason11 = "Room Claiming"
+Damagelog.Autoslay_DefaultReason12 = "Barrel Trolling"
 
 -- Default ban reasons (ULX and ServerGuard)
 
-Damagelog.Ban_DefaultReason1 = "random kill"
-Damagelog.Ban_DefaultReason2 = "multiple random kills"
-Damagelog.Ban_DefaultReason3 = "random damage"
-Damagelog.Ban_DefaultReason4 = "multiple random damage"
-Damagelog.Ban_DefaultReason5 = "unfitting answer"
-Damagelog.Ban_DefaultReason6 = "unfitting answers"
-Damagelog.Ban_DefaultReason7 = "unfitting language"
-Damagelog.Ban_DefaultReason8 = "teaming"
-Damagelog.Ban_DefaultReason9 = "ghosting"
-Damagelog.Ban_DefaultReason10 = "rude"
-Damagelog.Ban_DefaultReason11 = "cheating"
-Damagelog.Ban_DefaultReason12 = "spam"
+Damagelog.Ban_DefaultReason1 = "Multiple RDM"
+Damagelog.Ban_DefaultReason2 = "Mass RDM"
+Damagelog.Ban_DefaultReason3 = "Joined to Mass RDM"
+Damagelog.Ban_DefaultReason4 = "Ghosting"
+Damagelog.Ban_DefaultReason5 = "Hacking"
+Damagelog.Ban_DefaultReason6 = "Trolling"
+Damagelog.Ban_DefaultReason7 = ""
+Damagelog.Ban_DefaultReason8 = ""
+Damagelog.Ban_DefaultReason9 = ""
+Damagelog.Ban_DefaultReason10 = ""
+Damagelog.Ban_DefaultReason11 = ""
+Damagelog.Ban_DefaultReason12 = ""
 
 -- The number of days the logs last on the database (to avoid lags when opening the menu)
 
@@ -100,7 +100,7 @@ Damagelog.LogDays = 61
 
 -- Hide the Donate button on the top-right corner
 
-Damagelog.HideDonateButton = false
+Damagelog.HideDonateButton = true
 
 -- Use the Workshop to download content files
 

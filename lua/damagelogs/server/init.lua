@@ -41,13 +41,13 @@ if Damagelog.RDM_Manager_Enabled then
 	AddCSLuaFile("damagelogs/client/chat.lua")
 	AddCSLuaFile("damagelogs/shared/rdm_manager.lua")
 	AddCSLuaFile("damagelogs/shared/chat.lua")
-	if Damagelog.UseWorkshop then
+	/*if Damagelog.UseWorkshop then
 		resource.AddWorkshop("1129792694")
 	else
 		resource.AddFile("sound/damagelogs/vote_failure.wav")
 		resource.AddFile("sound/damagelogs/vote_yes.wav")
 		resource.AddFile("sound/damagelogs/vote_no.wav")
-	end
+	end*/
 	include("damagelogs/server/rdm_manager.lua")
 	include("damagelogs/server/chat.lua")
 	include("damagelogs/shared/rdm_manager.lua")
@@ -115,7 +115,7 @@ function Damagelog:TTTBeginRound()
 	end
 
 	table.Empty(self.DamageTable)
-	
+
 end
 
 hook.Add("TTTBeginRound", "TTTBeginRound_Damagelog", function()
@@ -183,7 +183,7 @@ function Damagelog:WeaponFromDmg(dmg)
 end
 
 function Damagelog:SendDamagelog(ply, round)
-	
+
 	if self.MySQL_Error and not ply.DL_MySQL_Error then
 		Damagelog:Error(debug.getinfo(1).source, debug.getinfo(1).currentline, "mysql connection error")
 		ply.DL_MySQL_Error = true
@@ -192,15 +192,15 @@ function Damagelog:SendDamagelog(ply, round)
 	local damage_send = {}
 	local roles = self.Roles[round]
 	local current = false
-	
+
 	if round == -1 then
-		
+
 		if not self.last_round_map then return end
 
 		if not Damagelog.PreviousMap then
 
 			if Damagelog.Use_MySQL then
-			
+
 				local query = self.database:query("SELECT damagelog FROM damagelog_oldlogs_v3 WHERE date = " .. self.last_round_map)
 
 				query.onSuccess = function(q)
@@ -219,11 +219,11 @@ function Damagelog:SendDamagelog(ply, round)
 						Damagelog.PreviousMap = decoded
 					end
 				end
-	
+
 				query:start()
-		
+
 			else
-		
+
 				local query = sql.QueryValue("SELECT damagelog FROM damagelog_oldlogs_v3 WHERE date = " .. self.last_round_map)
 				if not query then return end
 				local decoded = util.JSONToTable(query)
@@ -238,7 +238,7 @@ function Damagelog:SendDamagelog(ply, round)
 				Damagelog.PreviousMap = decoded
 
 			end
-		
+
 		else
 
 			self:TransferLogs(Damagelog.PreviousMap.DamageTable, ply, round, Damagelog.PreviousMap.Roles)
@@ -246,7 +246,7 @@ function Damagelog:SendDamagelog(ply, round)
 		end
 
 	else
-	
+
 		if round == self:GetSyncEnt():GetPlayedRounds() then
 			if not ply:CanUseDamagelog() then return end
 			damage_send = self.DamageTable
@@ -270,9 +270,9 @@ function Damagelog:TransferLogs(damage_send, ply, round, roles, current)
 	net.WriteUInt(count, 32)
 	for k,v in ipairs(damage_send) do
 		net.WriteTable(v)
-	end	
+	end
 	net.Send(ply)
-		
+
 	if current and ply:IsActive() then
 		net.Start("DL_InformSuperAdmins")
 		net.WriteString(ply:Nick())
@@ -301,8 +301,8 @@ end)
 
 hook.Add("PlayerDeath", "Damagelog_PlayerDeathLastLogs", function(ply)
 
-	if GetRoundState() != ROUND_ACTIVE then return end		
-	
+	if GetRoundState() != ROUND_ACTIVE then return end
+
 	local found_dmg = {}
 	local count = #Damagelog.DamageTable
 	for i = count, 1, -1 do
@@ -310,10 +310,10 @@ hook.Add("PlayerDeath", "Damagelog_PlayerDeathLastLogs", function(ply)
 		if !Damagelog.Time or line.time < Damagelog.Time - 10 then break end
 		table.insert(found_dmg, line)
 	end
-		
+
 	ply.DeathDmgLog = {
 		logs = table.Reverse(found_dmg),
 		roles = Damagelog.Roles[#Damagelog.Roles]
-	}	
-	
+	}
+
 end)

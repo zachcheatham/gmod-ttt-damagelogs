@@ -122,9 +122,9 @@ function Damagelog:SetSlays(admin, steamid, slays, reason, target)
 	    sql.Query("DELETE FROM damagelog_autoslay WHERE ply = '"..steamid.."';")
 		local name = self:GetName(steamid)
 		if target then
-			ulx.fancyLogAdmin(admin, aslay and "#A removed the autoslays of #T." or "#A removed the autojails of #T.", target)
+			ulx.fancyLogAdmin(admin, ZCore.ULX.getPlayersWithPermission("ulx aslay"), aslay and "#A removed the autoslays of #T." or "#A removed the autojails of #T.", target)
 		else
-			ulx.fancyLogAdmin(admin, aslay and "#A removed the autoslays of #s." or "#A removed the jails of #s.", steamid)
+			ulx.fancyLogAdmin(admin, ZCore.ULX.getPlayersWithPermission("ulx aslay"), aslay and "#A removed the autoslays of #s." or "#A removed the jails of #s.", steamid)
 		end
 		NetworkSlays(steamid, 0)
 	else
@@ -152,14 +152,14 @@ function Damagelog:SetSlays(admin, steamid, slays, reason, target)
 					else
 						msg = "#T was already autojailed "
 					end
-					ulx.fancyLogAdmin(admin, msg..slays.." time(s) by #A for #s.", target, list, reason)
+					ulx.fancyLogAdmin(admin, ZCore.ULX.getPlayersWithPermission("ulx aslay"), msg..slays.." time(s) by #A for #s.", target, list, reason)
 				else
 					if aslay then
 						msg = "#s was already autoslain "
 					else
 						msg = "#s was already autojailed "
 					end
-					ulx.fancyLogAdmin(admin, msg..slays.." time(s) by #A for #s.", steamid, list, reason)
+					ulx.fancyLogAdmin(admin, ZCore.ULX.getPlayersWithPermission("ulx aslay"), msg..slays.." time(s) by #A for #s.", steamid, list, reason)
 				end
 			else
 				local difference = slays - old_slays
@@ -173,14 +173,14 @@ function Damagelog:SetSlays(admin, steamid, slays, reason, target)
 					else
 						msg = " autojails to #T for the reason : '#s'. He was previously autojailed "
 					end
-					ulx.fancyLogAdmin(admin, "#A "..(difference > 0 and "added " or "removed ")..math.abs(difference)..msg..old_slays.." time(s) by #s.", target, reason, list)
+					ulx.fancyLogAdmin(admin, ZCore.ULX.getPlayersWithPermission("ulx aslay"), "#A "..(difference > 0 and "added " or "removed ")..math.abs(difference)..msg..old_slays.." time(s) by #s.", target, reason, list)
 				else
 					if aslay then
 						msg = " autoslays to #s for the reason : '#s'. He was previously autoslain "
 					else
 						msg = " autojails to #s for the reason : '#s'. He was previously autojailed "
 					end
-					ulx.fancyLogAdmin(admin, "#A "..(difference > 0 and "added " or "removed ")..math.abs(difference)..msg..old_slays.." time(s) by #s.", steamid, reason, list)
+					ulx.fancyLogAdmin(admin, ZCore.ULX.getPlayersWithPermission("ulx aslay"), "#A "..(difference > 0 and "added " or "removed ")..math.abs(difference)..msg..old_slays.." time(s) by #s.", steamid, reason, list)
 				end
 				NetworkSlays(steamid, slays)
 			end
@@ -199,14 +199,14 @@ function Damagelog:SetSlays(admin, steamid, slays, reason, target)
 				else
 					msg = " autojails to #T with the reason : '#s'"
 				end
-				ulx.fancyLogAdmin(admin, "#A added "..slays..msg, target, reason)
+				ulx.fancyLogAdmin(admin, ZCore.ULX.getPlayersWithPermission("ulx aslay"), "#A added "..slays..msg, target, reason)
 			else
 				if aslay then
 					msg = " autoslays to #s with the reason : '#s'"
 				else
 					msg = " autojails to #s with the reason : '#s'"
 				end
-				ulx.fancyLogAdmin(admin, "#A added "..slays..msg, steamid, reason)
+				ulx.fancyLogAdmin(admin, ZCore.ULX.getPlayersWithPermission("ulx aslay"), "#A added "..slays..msg, steamid, reason)
 			end
 			NetworkSlays(steamid, slays)
 		end
